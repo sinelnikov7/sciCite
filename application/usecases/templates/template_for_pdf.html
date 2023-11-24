@@ -1,0 +1,18 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hi</title>
+</head>
+<body>
+    <h1>Отчет по пользователю -  {{ name }}</h1>
+    <h2>Сообщества Вконтакте:</h2>
+    <p>{% for group in vk_group%}{{ group }}{% endfor %}</p>
+    <h2>Друзья Вконтакте:</h2>
+    <p style="width: 900px">{% for friend in vk_friends%}{{ friend.first_name }} {{ friend.last_name }}, {% endfor %}</p>
+    <h2>Контакты Telegram:</h2>
+    <p style="width: 900px">{% for contact in tgelegram_contacts%}{{ contact.first_name }}
+        {{ contact.last_name }} - {{ contact.phone }}, {% endfor %}</p>
+    <h2>Контакты Instagram:</h2>
+    <p>{% for contact in instagram_contacts%}{{ contact }}, {% endfor %}</p>
+</body>
+</html>

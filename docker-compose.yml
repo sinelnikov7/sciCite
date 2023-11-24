@@ -1,0 +1,41 @@
+version: '2.13'
+services:
+  db_scicite:
+    container_name: pg_container
+    image: postgres:14-alpine
+    restart: always
+    env_file:
+      - ./.env
+    environment:
+      POSTGRES_USER: "${DB_USER}"
+      POSTGRES_PASSWORD: "${DB_PASS}"
+      POSTGRES_DB: "${DB_NAME}"
+    volumes:
+      - myapp:/postgres_data/var/lib/postgresql/data
+    ports:
+      - "54321:5432"
+  pgadmin_scicite:
+    container_name: pgadmin4_container
+    image: dpage/pgadmin4
+    restart: always
+    env_file:
+      - ./.env
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "${PGADMIN_DEFAULT_EMAIL}"
+      PGADMIN_DEFAULT_PASSWORD: "${PGADMIN_DEFAULT_PASSWORD}"
+    ports:
+      - "5050:80"
+  rabbitmq_scicite:
+    image: rabbitmq:3.8-management
+    ports:
+      - 5672:5672
+      - 15672:15672
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=admin123
+volumes:
+  rabbitmq_data:
+  myapp:
+
